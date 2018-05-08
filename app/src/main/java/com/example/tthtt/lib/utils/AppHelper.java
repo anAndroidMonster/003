@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by book4 on 2018/4/28.
@@ -67,7 +69,11 @@ public class AppHelper {
                 MyAppContext.getInstance().startActivity(intent);
             }catch (Exception e){
                 e.printStackTrace();
+            }finally {
+                openRandomTime();
             }
+        }else{
+            FinishHelper.showFinish();
         }
     }
 
@@ -77,6 +83,8 @@ public class AppHelper {
         int value = random.nextInt(100);
         if(value <= rate){
             InstallHelper.getInstance().install(fileName);
+        }else{
+            FinishHelper.showFinish();
         }
     }
 
@@ -103,5 +111,18 @@ public class AppHelper {
             }
         }
         UninstallHelper.getInstance().uninstall(appList);
+    }
+
+    private static void openRandomTime(){
+        Random random = new Random();
+        long useTime = random.nextInt(1000*60);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                FinishHelper.showFinish();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timerTask, useTime);
     }
 }
