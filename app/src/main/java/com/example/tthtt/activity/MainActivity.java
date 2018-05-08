@@ -110,41 +110,6 @@ public class MainActivity extends Activity {
 
     }
 
-//    private void getCity(){
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://int.dpool.sina.com.cn/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        final GetCityService request = retrofit.create(GetCityService.class);
-//        Call<GetCityModel> call = request.getCity();
-//        showStatus("\n获取城市");
-//        call.enqueue(new Callback<GetCityModel>() {
-//            @Override
-//            public void onResponse(Call<GetCityModel> call, Response<GetCityModel> response) {
-//                GetCityModel temp = response.body();
-//                if(temp != null && temp.getCity() != null ) {
-//                    mCity = temp.getCity();
-//                    showStatus("，获取成功:" + mCity);
-//                    mHandler.post(mGetMachineRun);
-//                }
-//                String result = new Gson().toJson(response.body());
-//                LogHelper.d("getCity:" + result);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetCityModel> call, Throwable t) {
-//                showStatus("，获取失败");
-//                LogHelper.d("getCity:" + t.getMessage());
-//                mHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        reConnectVpn();
-//                    }
-//                });
-//            }
-//        });
-//    }
-
     private void getMachine(){
         int type = RepeatControlHelper.getInstance().getRepeatType();
         showStatus("\n留存类型：" + type);
@@ -159,53 +124,6 @@ public class MainActivity extends Activity {
 
         }
     }
-
-//    private void getLatLng(PhoneModel data){
-//        LocationModel address = LocationDbHelper.getInstance().getByCity(mCity);
-//        if(address != null){
-//            dealWithData(data, address);
-//        }else{
-//            LogHelper.d("getLatLng本地:null");
-//            getLatLngFromNet(data, mCity);
-//        }
-//    }
-
-//    private void getLatLngFromNet(final PhoneModel phone, final String city){
-//        PoiSearch.Query query = new PoiSearch.Query(city, "190104", "");
-//        query.setPageSize(10);// 设置每页最多返回多少条poiitem
-//        query.setPageNum(1);
-//        PoiSearch poiSearch = new PoiSearch(this, query);
-//        LogHelper.d("getLatLng:入参" + city);
-//        showStatus("\n获取经纬度：" + city);
-//        poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
-//            @Override
-//            public void onPoiSearched(PoiResult poiResult, int i) {
-//                if(poiResult != null && poiResult.getPois() != null && poiResult.getPois().size() > 0){
-//                    PoiItem item = poiResult.getPois().get(0);
-//                    LatLonPoint latLng = item.getLatLonPoint();
-//                    LogHelper.d("getLatLng:经纬度" + latLng.getLongitude() + "," + latLng.getLatitude());
-//                    showStatus("，获取成功");
-//                    LocationModel data = new LocationModel();
-//                    data.setCity(city);
-//                    data.setLat(latLng.getLatitude());
-//                    data.setLng(latLng.getLongitude());
-//                    LocationDbHelper.getInstance().put(data);
-//                    dealWithData(phone, data);
-//                }else{
-//                    showStatus("，获取失败");
-//                    LogHelper.d("getLatLng:请求失败");
-//                    dealWithData(phone, null);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onPoiItemSearched(PoiItem poiItem, int i) {
-//
-//            }
-//        });
-//        poiSearch.searchPOIAsyn();
-//    }
 
     private void dealWithData(PhoneModel data){
         if(data == null ) return;

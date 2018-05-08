@@ -1,5 +1,7 @@
 package com.example.tthtt.utils;
 
+import com.example.tthtt.common.Constant;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -10,7 +12,7 @@ import java.io.OutputStream;
 public class StopHelper {
     private static StopHelper mInstance;
     private Process process;
-    private final String[] mAppArray = {"com.lsf.xmchqq.android"};
+    private final String[] mAppArray = {Constant.APP_NAME};
 
     public static StopHelper getInstance(){
         if(mInstance == null){

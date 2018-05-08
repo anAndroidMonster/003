@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.format.DateUtils;
 
+import com.example.tthtt.common.Constant;
 import com.example.tthtt.common.MyAppContext;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class AppHelper {
     }
 
     public static boolean isWhiteApp(String pkgName){
-        String[] apps = {"com.example.tthtt", "com.lsf.xmchqq.android"};
+        String[] apps = {"com.example.tthtt", Constant.APP_NAME};
         for(String app: apps){
             if(app.equals(pkgName)){
                 return true;

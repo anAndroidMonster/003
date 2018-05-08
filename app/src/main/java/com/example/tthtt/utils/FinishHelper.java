@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.tthtt.common.Constant;
 import com.example.tthtt.common.MyAppContext;
 
 /**
@@ -16,7 +17,7 @@ public class FinishHelper {
         try {
             Intent intent=new Intent();
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            ComponentName cn=new ComponentName("com.example.test", "com.common.FinishActivity");
+            ComponentName cn=new ComponentName(Constant.APP_NAME, "com.common.FinishActivity");
             intent.setComponent(cn);
             MyAppContext.getInstance().startActivity(intent);
         }catch (Exception e) {
