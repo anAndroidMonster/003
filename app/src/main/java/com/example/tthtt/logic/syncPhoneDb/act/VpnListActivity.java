@@ -29,6 +29,7 @@ public class VpnListActivity extends Activity {
     private ListView mLvAddress;
     private VpnAdapter mAdapter;
     private TextView mTvAdd;
+    private TextView mTvCount;
     //data
     private List<VpnModel> mDataList = new ArrayList<>();
 
@@ -50,6 +51,7 @@ public class VpnListActivity extends Activity {
         mAdapter = new VpnAdapter(VpnListActivity.this, mDataList);
         mLvAddress.setAdapter(mAdapter);
         mTvAdd = (TextView) findViewById(R.id.tv_add);
+        mTvCount = (TextView) findViewById(R.id.tv_count);
     }
 
     private void initEvent(){
@@ -76,6 +78,7 @@ public class VpnListActivity extends Activity {
         mDataList.clear();
         mDataList.addAll(tempList);
         mAdapter.notifyDataSetChanged();
+        mTvCount.setText(mDataList.size() + "");
     }
 
     @Override
