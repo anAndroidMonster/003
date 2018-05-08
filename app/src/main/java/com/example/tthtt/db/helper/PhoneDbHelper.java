@@ -3,9 +3,9 @@ package com.example.tthtt.db.helper;
 import android.util.Log;
 
 import com.example.tthtt.db.AppDbHelper;
+import com.example.tthtt.model.PhoneModelDao;
 import com.example.tthtt.utils.StringUtil;
 import com.example.tthtt.model.PhoneModel;
-import com.example.tthtt.logic.syncPhoneDb.model.PhoneModelDao;
 
 import java.util.ArrayList;
 import java.util.List;

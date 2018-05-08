@@ -2,7 +2,7 @@ package com.example.tthtt.db.helper;
 
 import com.example.tthtt.db.AppDbHelper;
 import com.example.tthtt.model.HourControlModel;
-import com.example.tthtt.logic.syncPhoneDb.model.HourControlModelDao;
+import com.example.tthtt.model.HourControlModelDao;
 
 import java.util.List;
 

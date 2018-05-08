@@ -2,8 +2,8 @@ package com.example.tthtt.db;
 
 import android.content.Context;
 
-import com.example.tthtt.logic.syncPhoneDb.db.DaoMaster;
-import com.example.tthtt.logic.syncPhoneDb.db.DaoSession;
+import com.example.tthtt.model.DaoMaster;
+import com.example.tthtt.model.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 

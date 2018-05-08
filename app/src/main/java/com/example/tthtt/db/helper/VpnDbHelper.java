@@ -2,7 +2,7 @@ package com.example.tthtt.db.helper;
 
 import com.example.tthtt.db.AppDbHelper;
 import com.example.tthtt.model.VpnModel;
-import com.example.tthtt.logic.syncPhoneDb.model.VpnModelDao;
+import com.example.tthtt.model.VpnModelDao;
 
 import java.util.List;
 

@@ -3,15 +3,15 @@ package com.example.tthtt.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.tthtt.logic.syncPhoneDb.db.DaoMaster;
-import com.example.tthtt.logic.syncPhoneDb.db.RepeatRateModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.ActiveModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.DeviceModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.HourControlModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.LocationModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.PhoneModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.PhoneNumberModelDao;
-import com.example.tthtt.logic.syncPhoneDb.model.VpnModelDao;
+import com.example.tthtt.model.ActiveModelDao;
+import com.example.tthtt.model.DaoMaster;
+import com.example.tthtt.model.DeviceModelDao;
+import com.example.tthtt.model.HourControlModelDao;
+import com.example.tthtt.model.LocationModelDao;
+import com.example.tthtt.model.PhoneModelDao;
+import com.example.tthtt.model.PhoneNumberModelDao;
+import com.example.tthtt.model.RepeatRateModelDao;
+import com.example.tthtt.model.VpnModelDao;
 
 import org.greenrobot.greendao.database.Database;
 

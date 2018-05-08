@@ -1,10 +1,9 @@
 package com.example.tthtt.db.helper;
 
 import com.example.tthtt.db.AppDbHelper;
+import com.example.tthtt.model.DeviceModelDao;
 import com.example.tthtt.utils.LogHelper;
 import com.example.tthtt.model.DeviceModel;
-import com.example.tthtt.logic.syncPhoneDb.model.DeviceModelDao;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

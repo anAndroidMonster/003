@@ -2,7 +2,7 @@ package com.example.tthtt.db.helper;
 
 import com.example.tthtt.db.AppDbHelper;
 import com.example.tthtt.model.ActiveModel;
-import com.example.tthtt.logic.syncPhoneDb.model.ActiveModelDao;
+import com.example.tthtt.model.ActiveModelDao;
 
 import java.util.List;
 

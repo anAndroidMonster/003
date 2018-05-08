@@ -2,7 +2,7 @@ package com.example.tthtt.db.helper;
 
 import com.example.tthtt.db.AppDbHelper;
 import com.example.tthtt.model.RepeatRateModel;
-import com.example.tthtt.logic.syncPhoneDb.db.RepeatRateModelDao;
+import com.example.tthtt.model.RepeatRateModelDao;
 
 import java.util.List;
 
