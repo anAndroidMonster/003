@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_hour_control"
+        android:text="时段控制"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+    <TextView
+        android:id="@+id/tv_repeat_control"
+        android:text="留存控制"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+    <TextView
+        android:id="@+id/tv_active_control"
+        android:text="激活控制"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+    <TextView
+        android:id="@+id/tv_set_address"
+        android:text="设置网络"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+    <TextView
+        android:id="@+id/tv_download_machine"
+        android:text="同步机型"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+    <TextView
+        android:id="@+id/tv_download_phone_num"
+        android:text="同步号码"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_gray" />
+</LinearLayout>

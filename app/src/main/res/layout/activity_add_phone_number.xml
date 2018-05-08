@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/et_city"
+        android:hint="城市"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <EditText
+        android:id="@+id/et_company"
+        android:hint="0移动1电信2联通"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <EditText
+        android:id="@+id/et_phone_number"
+        android:hint="号码段"
+        android:scrollbars="vertical"
+        android:gravity="left|top"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:text="保存"
+        android:gravity="center"
+        android:background="@drawable/app_tv_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</LinearLayout>
