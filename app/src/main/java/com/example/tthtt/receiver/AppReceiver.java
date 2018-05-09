@@ -21,7 +21,7 @@ public class AppReceiver extends BroadcastReceiver {
             return;
         }
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)) {
-            LogHelper.d("appReceiver:安装" + packageName);
+            LogHelper.d("安装完成" + packageName);
             InstallHelper.getInstance().deleteInstallApk();
             AppHelper.openRandom(packageName);
         }

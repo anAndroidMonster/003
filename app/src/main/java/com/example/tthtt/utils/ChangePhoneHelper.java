@@ -114,6 +114,7 @@ public class ChangePhoneHelper {
         Random random = new Random();
         int index = random.nextInt(vpnList.size());
         VpnModel result = vpnList.get(index);
+        LogHelper.d("连接vpn：" + result.getServer());
         HashMap<String, String> map = ConfigFileHelper.ReadConfig();
         if(map == null || map.size() <= 0) return null;
         String code = ChangePhoneHelper.getInstance().getVpnCode(result);

@@ -27,6 +27,7 @@ public class DownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        LogHelper.d("启动安装服务");
         doInstall();
     }
 

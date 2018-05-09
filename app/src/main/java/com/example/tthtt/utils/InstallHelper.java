@@ -76,6 +76,7 @@ public class InstallHelper {
         if(StringUtil.isEmpty(mPath)) return;
         File file = new File(mPath);
         if(file.exists()){
+            LogHelper.d("删除安装包");
             file.delete();
         }
     }

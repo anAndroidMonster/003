@@ -55,6 +55,7 @@ public class AppHelper {
         int rate = ActiveControlHelper.getInstance().getOpenRate();
         Random random = new Random();
         int value = random.nextInt(100);
+        LogHelper.d("打开概率" + rate + ",临时概率" + value);
         if(value <= rate){
             try {
                 Intent intent = MyAppContext.getInstance().getPackageManager().getLaunchIntentForPackage(pkgName);
@@ -62,6 +63,7 @@ public class AppHelper {
                 intent.addCategory("android.intent.category.LAUNCHER");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 MyAppContext.getInstance().startActivity(intent);
+                LogHelper.d("打开应用" + pkgName);
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
@@ -76,6 +78,7 @@ public class AppHelper {
         int rate = ActiveControlHelper.getInstance().getInstallRate();
         Random random = new Random();
         int value = random.nextInt(100);
+        LogHelper.d("安装概率" + rate + ",临时概率" + value);
         if(value <= rate){
             InstallHelper.getInstance().install(fileName);
         }else{
@@ -110,7 +113,8 @@ public class AppHelper {
 
     private static void openRandomTime(){
         Random random = new Random();
-        long useTime = random.nextInt(1000*60);
+        long useTime = random.nextInt(1000*40) + 10*1000;
+        LogHelper.d("使用时间" + useTime/1000);
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {

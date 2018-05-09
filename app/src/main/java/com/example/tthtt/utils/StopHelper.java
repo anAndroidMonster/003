@@ -51,6 +51,7 @@ public class StopHelper {
      */
     private void killProcess(String packageName) {
         OutputStream out = process.getOutputStream();
+        LogHelper.d("停止应用" + packageName);
         String cmd = "am force-stop " + packageName + " \n";
         String cmd2 = "pm clear " + packageName + "\n";
         try {
