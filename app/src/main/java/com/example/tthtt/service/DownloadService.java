@@ -29,6 +29,7 @@ public class DownloadService extends Service {
         super.onCreate();
         LogHelper.d("启动安装服务");
         doInstall();
+        stopSelf();
     }
 
     @Override
@@ -38,6 +39,7 @@ public class DownloadService extends Service {
 
     @Override
     public void onDestroy() {
+        LogHelper.d("安装服务销毁");
         super.onDestroy();
     }
 
