@@ -50,8 +50,6 @@ public class MainActivity extends Activity {
         initView();
         initEvent();
         initData();
-        Intent intent = new Intent(MainActivity.this, DownloadService.class);
-        startService(intent);
     }
 
     private void initView(){
@@ -231,8 +229,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy(){
-        Intent intent = new Intent(MainActivity.this, DownloadService.class);
-        stopService(intent);
         super.onDestroy();
     }
 }

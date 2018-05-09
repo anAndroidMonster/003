@@ -19,6 +19,7 @@ public class FinishHelper {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             ComponentName cn=new ComponentName(Constant.APP_NAME, "com.common.FinishActivity");
             intent.setComponent(cn);
+            intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
             MyAppContext.getInstance().startActivity(intent);
         }catch (Exception e) {
             Log.e("finishHelper", "启动异常：" + e.getMessage());

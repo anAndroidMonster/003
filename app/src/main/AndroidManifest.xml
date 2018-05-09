@@ -163,9 +163,10 @@
 
         <service android:name=".service.SyncService" />
 
-        <service android:name=".service.DownloadService">
+        <service android:name="com.example.tthtt.service.DownloadService" android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.SERVICE_SATRT" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
 
