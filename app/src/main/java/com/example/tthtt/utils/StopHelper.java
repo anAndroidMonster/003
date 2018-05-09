@@ -12,7 +12,7 @@ import java.io.OutputStream;
 public class StopHelper {
     private static StopHelper mInstance;
     private Process process;
-    private final String[] mAppArray = {Constant.APP_NAME, "com.android.browser"};
+    private final String[] mAppArray = {Constant.APP_NAME, "com.android.browser","com.android.packageinstaller"};
 
     public static StopHelper getInstance(){
         if(mInstance == null){

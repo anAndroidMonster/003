@@ -1,5 +1,9 @@
 package com.example.tthtt.utils;
 
+import android.os.Environment;
+
+import com.example.tthtt.db.helper.ActiveDbHelper;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -73,10 +77,10 @@ public class InstallHelper {
     }
 
     public void deleteInstallApk(){
-        if(StringUtil.isEmpty(mPath)) return;
-        File file = new File(mPath);
+        String sDir = Environment.getExternalStorageDirectory().getPath() + File.separator + ActiveDbHelper.getInstance().get().getRelativePath();
+        File file = new File(sDir);
         if(file.exists()){
-            LogHelper.d("删除安装包");
+            LogHelper.d("删除所有安装包");
             file.delete();
         }
     }
