@@ -80,8 +80,8 @@ public class InstallHelper {
         String sDir = Environment.getExternalStorageDirectory().getPath() + File.separator + ActiveDbHelper.getInstance().get().getRelativePath();
         File file = new File(sDir);
         if(file.exists()){
-            LogHelper.d("删除所有安装包");
-            file.delete();
+            LogHelper.d("删除所有安装包" + sDir);
+            CleanHelper.getInstance().deleteDir(file);
         }
     }
 }

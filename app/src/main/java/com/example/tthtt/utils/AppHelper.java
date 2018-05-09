@@ -66,8 +66,6 @@ public class AppHelper {
                 LogHelper.d("打开应用" + pkgName);
             }catch (Exception e){
                 e.printStackTrace();
-            }finally {
-                openRandomTime();
             }
         }else{
             FinishHelper.showFinish();
@@ -82,6 +80,7 @@ public class AppHelper {
         if(value <= rate){
             InstallHelper.getInstance().install(fileName);
         }else{
+            InstallHelper.getInstance().deleteInstallApk();
             FinishHelper.showFinish();
         }
     }
@@ -109,19 +108,5 @@ public class AppHelper {
             }
         }
         UninstallHelper.getInstance().uninstall(appList);
-    }
-
-    private static void openRandomTime(){
-        Random random = new Random();
-        long useTime = random.nextInt(1000*40) + 10*1000;
-        LogHelper.d("使用时间" + useTime/1000);
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                FinishHelper.showFinish();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(timerTask, useTime);
     }
 }
