@@ -56,5 +56,4 @@ dependencies {
     //高德
     //分包
     compile 'com.android.support:multidex:1.0.1'
-    implementation files('libs/GDTUnionSDK.4.15.559.min.jar')
 }

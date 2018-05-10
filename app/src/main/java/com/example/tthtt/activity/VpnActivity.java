@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,9 +15,11 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.example.tthtt.R;
+import com.example.tthtt.common.MyAppContext;
 import com.example.tthtt.utils.ChangePhoneHelper;
 import com.example.tthtt.utils.ConfigFileHelper;
 import com.example.tthtt.utils.LogHelper;
+import com.example.tthtt.utils.StopHelper;
 import com.example.tthtt.utils.StringUtil;
 import com.example.tthtt.utils.VpnHelper;
 import com.example.tthtt.db.helper.VpnDbHelper;
@@ -130,7 +133,21 @@ public class VpnActivity extends Activity {
                     connect();
                     break;
                 case R.id.tv_test:
-                    AdActivity.enterActivity(VpnActivity.this);
+                    //清理并打开
+                    StopHelper.getInstance().killAdDemo();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            MyAppContext.getInstance().setNeedFront(false);
+                            openAdActivity();
+                        }
+                    }, 1000*5);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            MyAppContext.getInstance().setNeedFront(true);
+                        }
+                    }, 1000*8);
                     break;
                 case R.id.tv_get_location:
                     getCity();
@@ -286,5 +303,17 @@ public class VpnActivity extends Activity {
         mData.setCodeStr(code);
         Toast.makeText(VpnActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void openAdActivity(){
+        try {
+            Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.addemo");
+            intent.setAction("android.intent.action.MAIN");
+            intent.addCategory("android.intent.category.LAUNCHER");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            startActivity(intent);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 }

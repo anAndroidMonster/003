@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class MyAppContext extends MultiDexApplication {
-    private static Context mInstance;
+    private static MyAppContext mInstance;
 
     @Override
     public void onCreate() {
@@ -29,7 +29,7 @@ public class MyAppContext extends MultiDexApplication {
         watchBackground();
     }
 
-    public static Context getInstance(){
+    public static MyAppContext getInstance(){
         return mInstance;
     }
 
@@ -41,9 +41,11 @@ public class MyAppContext extends MultiDexApplication {
             public void onActivityStopped(Activity activity) {
                 count--;
                 if (count == 0) {
-                    LogHelper.d("tthtt回到前台");
-                    //防止卸载弹出浏览器
-                    backToFront();
+                    if(isNeedFront){
+                        LogHelper.d("tthtt回到前台");
+                        //防止卸载弹出浏览器
+                        backToFront();
+                    }
                     Log.v("tthtt", ">>>>>>>>>>>>>>>>>>>切到后台  lifecycle");
                 }
             }
@@ -108,5 +110,11 @@ public class MyAppContext extends MultiDexApplication {
                 break;
             }
         }
+    }
+
+    private boolean isNeedFront = true;
+
+    public void setNeedFront(boolean value){
+        isNeedFront = value;
     }
 }

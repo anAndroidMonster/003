@@ -34,6 +34,12 @@ public class StopHelper {
         close();
     }
 
+    public void killAdDemo() {
+        initProcess();
+        killProcess("com.example.addemo");
+        close();
+    }
+
     /**
      * 初始化进程
      */
