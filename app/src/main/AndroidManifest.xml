@@ -108,6 +108,7 @@
             android:name="com.amap.api.v2.apikey"
             android:value="d64db778acdb63f527033027bbcf9e4e"/>
         <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
