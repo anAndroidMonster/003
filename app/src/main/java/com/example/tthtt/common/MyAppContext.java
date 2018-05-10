@@ -18,7 +18,7 @@ import java.util.List;
  * Created by book4 on 2018/3/16.
  */
 
-public class tthttContext extends MultiDexApplication {
+public class MyAppContext extends MultiDexApplication {
     private static Context mInstance;
 
     @Override
@@ -96,12 +96,12 @@ public class tthttContext extends MultiDexApplication {
                     intent.addCategory(Intent.ACTION_MAIN);
                     intent.addCategory(Intent.CATEGORY_LAUNCHER);
                     intent.setComponent(new ComponentName(
-                            tthttContext.this, Class
+                            MyAppContext.this, Class
                             .forName(topActivity.getClassName())));
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
                             | Intent.FLAG_ACTIVITY_NEW_TASK
                             | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                    tthttContext.this.startActivity(intent);
+                    MyAppContext.this.startActivity(intent);
                 }catch (ClassNotFoundException ex){
                     ex.printStackTrace();
                 }
