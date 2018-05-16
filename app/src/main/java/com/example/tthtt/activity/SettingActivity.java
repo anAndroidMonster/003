@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.tthtt.R;
+import com.example.tthtt.utils.PowerHelper;
 
 /**
  * Created by book4 on 2018/4/8.
@@ -40,6 +41,7 @@ public class SettingActivity extends Activity {
         findViewById(R.id.tv_download_machine).setOnClickListener(mClickListener);
         findViewById(R.id.tv_download_phone_num).setOnClickListener(mClickListener);
         findViewById(R.id.tv_active_control).setOnClickListener(mClickListener);
+        findViewById(R.id.tv_reboot).setOnClickListener(mClickListener);
     }
 
     private View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -63,6 +65,9 @@ public class SettingActivity extends Activity {
                     break;
                 case R.id.tv_active_control:
                     ActiveSetActivity.enterActivity(SettingActivity.this);
+                    break;
+                case R.id.tv_reboot:
+                    PowerHelper.reboot();
                     break;
             }
         }

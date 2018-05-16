@@ -14,4 +14,13 @@ public class PowerHelper {
             e.printStackTrace();
         }
     }
+
+    public static void reboot(){
+        try {
+            Process proc = Runtime.getRuntime().exec(new String[]{"su","-c", "reboot"});
+            proc.waitFor();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
