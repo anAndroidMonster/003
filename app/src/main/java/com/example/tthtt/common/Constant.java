@@ -5,5 +5,5 @@ package com.example.tthtt.common;
  */
 
 public class Constant {
-    public final static String APP_NAME = "com.example.test";
+    public final static String APP_NAME = "com.lsf.xmchqq.android";
 }
