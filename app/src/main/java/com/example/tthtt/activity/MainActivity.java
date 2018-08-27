@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tthtt.R;
 import com.example.tthtt.utils.AppHelper;
@@ -35,13 +36,11 @@ import java.util.Random;
 public class MainActivity extends Activity {
 
     //view
-    private TextView mTvGetPhone;
     //data
-    private final String Tag = "mainAct";
     private Handler mHandler = new Handler();
-    private final long mTimeDelay = 1000*60;
     private int mConnectTime;
     private VpnModel mVpn;
+    private boolean isShowing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +52,9 @@ public class MainActivity extends Activity {
     }
 
     private void initView(){
-        mTvGetPhone = (TextView) findViewById(R.id.tv_get_phone);
     }
 
     private void initEvent(){
-        mTvGetPhone.setOnClickListener(mClickListener);
         findViewById(R.id.tv_setting).setOnClickListener(mClickListener);
     }
 
@@ -65,17 +62,6 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.tv_get_phone:
-                    mTvGetPhone.setBackgroundColor(getResources().getColor(R.color.app_gray));
-                    mTvGetPhone.setText("");
-                    showStatus("停止应用");
-                    StopHelper.getInstance().kill();
-                    showStatus("，卸载应用");
-                    LogHelper.d("开始卸载");
-                    AppHelper.deleteAllApp();
-                    LogHelper.d("卸载完成");
-                    reConnectVpn();
-                    break;
                 case R.id.tv_setting:
                     SettingActivity.enterActivity(MainActivity.this);
                     break;
@@ -84,39 +70,50 @@ public class MainActivity extends Activity {
     };
 
     private void initData(){
-
+        ChangePhoneHelper.getInstance().init(MainActivity.this);
     }
 
     private Runnable mGetMachineRun = new Runnable() {
         @Override
         public void run() {
-            boolean isDelay = HourControlHelper.getInstance().getIsDelay();
-            showStatus("\n是否延迟：" + isDelay);
-            if(isDelay){
-                mHandler.postDelayed(mGetMachineRun, mTimeDelay);
-            }else{
-                getMachine();
-            }
+            //去掉延迟
+            getMachine();
         }
     };
 
     @Override
     public void onResume(){
         super.onResume();
-        ChangePhoneHelper.getInstance().init(MainActivity.this);
 
+        Toast.makeText(MainActivity.this, "倒计时30秒", Toast.LENGTH_SHORT).show();
+        isShowing = true;
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(isShowing){
+                    //停止应用，清除应用数据
+                    StopHelper.getInstance().kill();
+                    //删除安装应用
+                    AppHelper.deleteAllApp();
+                    //清除sd卡
+                    CleanHelper.getInstance().clearSdcard();
+                    //连接网络
+                    reConnectVpn();
+                }
+            }
+        }, 1000*30);
 
     }
 
     private void getMachine(){
         int type = RepeatControlHelper.getInstance().getRepeatType();
-        showStatus("\n留存类型：" + type);
+        LogHelper.d("留存类型：" + type);
         DeviceModel data = DeviceDbHelper.getInstance().getOne(type, mVpn.getCity());
         if(data == null) {
             PowerHelper.shutDown();
         }else {
             PhoneModel phone = PhoneDbHelper.getInstance().getByKey(data.getP_key());
-            showStatus("\n获取机型：" + phone.getP_key());
+            LogHelper.d("获取机型：" + phone.getP_key());
             dealWithData(phone);
 
 
@@ -131,6 +128,7 @@ public class MainActivity extends Activity {
         String latOld = "";
         String lngOld = "";
         String phoneOld = "";
+        String stationOld = "";
         if(deviceObj.has("latitude")){
             latOld = deviceObj.get("latitude").getAsString();
         }
@@ -140,19 +138,35 @@ public class MainActivity extends Activity {
         if(deviceObj.has("phone_number")){
             phoneOld = deviceObj.get("phone_number").getAsString();
         }
-        LogHelper.d("dealData: old:" + latOld + "," + lngOld + "," + phoneOld);
-        showStatus("\n旧数据：" + "," + latOld + "," + lngOld + "," + phoneOld);
+        if(deviceObj.has("base_station_nearby")){
+            stationOld = deviceObj.get("base_station_nearby").getAsString();
+        }
+        LogHelper.d("dealData: old:" + latOld + "," + lngOld + "," + phoneOld + "," + stationOld);
 
         Random rand = new Random();
         int latValue = rand.nextInt(20000);
         int lngValue = rand.nextInt(20000);
+        int latStation = rand.nextInt(20000);
+        int lngStation = rand.nextInt(20000);
 
         double latFinal = mVpn.getLat() + 0.000001 * (latValue - 10000);
         double lngFinal = mVpn.getLng() + 0.000001 * (lngValue - 10000);
-        LogHelper.d("dealData: new:" + latFinal + "," + lngFinal);
+        double latStationFinal = mVpn.getLat() + 0.000001 * (latStation - 10000);
+        double lngStationFinal = mVpn.getLng() + 0.000001 * (lngStation - 10000);
+        LogHelper.d("新经纬度:" + latFinal + "," + lngFinal);
         deviceObj.addProperty("longitude", lngFinal);
         deviceObj.addProperty("latitude", latFinal);
-        showStatus("\n新经纬度：" + latFinal + "," + lngFinal);
+
+        if(stationOld.length() > 0){
+            int lastIndex = stationOld.lastIndexOf(",");
+            if(lastIndex > 0){
+                stationOld = stationOld.substring(0, lastIndex);
+                stationOld = stationOld + lngStationFinal + "," + latStationFinal;
+                LogHelper.d("新基站经纬度：" + stationOld);
+                deviceObj.addProperty("base_station_nearby", stationOld);
+                deviceObj.addProperty("base_station_self", stationOld);
+            }
+        }
 
         if(!data.isEdit() && deviceObj.has("phone_number")) {
             String phone = deviceObj.get("phone_number").getAsString();
@@ -164,7 +178,7 @@ public class MainActivity extends Activity {
                     phone = phone.substring(phoneNum.getPhoneNumber().length());
                     phone = phoneNum.getPhoneNumber() + phone;
                     LogHelper.d("dealData: new:" + phone);
-                    showStatus("\n新手机号：" + phone);
+                    LogHelper.d("新手机号：" + phone);
                     deviceObj.addProperty("phone_number", phone);
                 }
             }
@@ -172,16 +186,15 @@ public class MainActivity extends Activity {
         data.setDevice_info(gson.toJson(deviceObj));
         data.setEdit(true);
         PhoneDbHelper.getInstance().put(data);
-        showStatus("\n写入机型");
         ConfigFileHelper.WriteDeviceConfig(data);
-        showStatus("\n清除sd卡");
-        CleanHelper.getInstance().clearSdcard();
+        LogHelper.d("写入完毕");
+
 
         if(mHandler != null){
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mTvGetPhone.setBackgroundResource(R.color.app_green);
+                    AppHelper.openTargetApp();
                 }
             });
         }
@@ -191,7 +204,7 @@ public class MainActivity extends Activity {
         @Override
         public void run() {
             if(VpnHelper.isVpnConnected()){
-                showStatus("\n城市:" + mVpn.getCity() + "，经纬度:" + mVpn.getLng() + "," + mVpn.getLat());
+                LogHelper.d("连接成功，城市:" + mVpn.getCity() + "，经纬度:" + mVpn.getLng() + "," + mVpn.getLat());
                 mHandler.postDelayed(mGetMachineRun, 1000*2);
             }else{
                 mConnectTime += 1;
@@ -205,17 +218,11 @@ public class MainActivity extends Activity {
         }
     };
 
-    private void showStatus(String content){
-        if(StringUtil.isEmpty(content)) return;
-        String old = mTvGetPhone.getText().toString();
-        mTvGetPhone.setText(old + content);
-    }
-
     private void reConnectVpn(){
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                showStatus("\n连接vpn");
+                LogHelper.d("重新连接");
                 mConnectTime = 0;
                 mVpn = ChangePhoneHelper.getInstance().connectVpnRandom();
                 if(mVpn == null){
@@ -228,7 +235,9 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStop(){
+        isShowing = false;
+        Toast.makeText(MainActivity.this, "倒计时取消", Toast.LENGTH_SHORT).show();
+        super.onStop();
     }
 }

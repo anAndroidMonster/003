@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.format.DateUtils;
+import android.widget.Toast;
 
 import com.example.tthtt.common.Constant;
 import com.example.tthtt.common.MyAppContext;
@@ -108,5 +109,25 @@ public class AppHelper {
             }
         }
         UninstallHelper.getInstance().uninstall(appList);
+    }
+
+    public static void openTargetApp(){
+        PackageManager packageManager = MyAppContext.getInstance().getPackageManager();
+        if (checkPackInfo(Constant.APP_NAME)) {
+            Intent intent = packageManager.getLaunchIntentForPackage(Constant.APP_NAME);
+            MyAppContext.getInstance().startActivity(intent);
+        } else {
+            Toast.makeText(MyAppContext.getInstance(), "没有安装" + Constant.APP_NAME, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private static boolean checkPackInfo(String packname) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = MyAppContext.getInstance().getPackageManager().getPackageInfo(packname, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo != null;
     }
 }
