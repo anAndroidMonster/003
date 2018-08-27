@@ -10,7 +10,7 @@ import java.io.File;
 
 public class CleanHelper {
     private static CleanHelper mInstance;
-    private final String[] WHITE_LIST = {"config.ini", "device.ini", "reserved", "package_list", "MobileAnJian"};
+    private final String[] WHITE_LIST = {"config.ini", "device.ini", "reserved", "package_list"};
 
     public static CleanHelper getInstance(){
         if(mInstance == null){

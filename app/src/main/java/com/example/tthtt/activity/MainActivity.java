@@ -183,6 +183,7 @@ public class MainActivity extends Activity {
                 }
             }
         }
+        //保存改后信息
         data.setDevice_info(gson.toJson(deviceObj));
         data.setEdit(true);
         PhoneDbHelper.getInstance().put(data);

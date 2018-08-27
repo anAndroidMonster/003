@@ -95,12 +95,9 @@ public class AppHelper {
             PackageInfo pak = packageInfoList.get(i);
             if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {//第三方
                 if(!isWhiteApp(pak.packageName)){
-                    Date nowDate = new Date();
-                    if(nowDate.getTime()- DateUtils.DAY_IN_MILLIS > pak.firstInstallTime){
-                    }else{
-                        if(!appList.contains(pak.packageName)) {
-                            appList.add(pak.packageName);
-                        }
+
+                    if(!appList.contains(pak.packageName)) {
+                        appList.add(pak.packageName);
                     }
 
                 }
