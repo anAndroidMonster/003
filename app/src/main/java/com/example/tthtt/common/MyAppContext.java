@@ -10,6 +10,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.example.tthtt.db.AppDbHelper;
+import com.example.tthtt.db.GreenDaoContext;
 import com.example.tthtt.utils.LogHelper;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MyAppContext extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        AppDbHelper.getInstance().init(this);
+        AppDbHelper.getInstance().init(new GreenDaoContext());
         watchBackground();
     }
 
